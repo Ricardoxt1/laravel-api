@@ -14,29 +14,31 @@ services:
         depends_on:
             - redis
         networks:
-            - laravel-9
+            - laravel-api
 
     # nginx
     nginx:
         image: nginx:alpine
         restart: unless-stopped
-        ports: 
+        ports:
             - "8000:80"
-        volumes: 
+        volumes:
             - ./:/var/www
             - ./docker/nginx/:/etc/nginx/conf.d/
-        networks: 
-            - laravel-9
-            
+        networks:
+            - laravel-api
+
     # phpmyadmin
     admin:
         image: phpmyadmin/phpmyadmin:latest
         ports:
-          - 8001:80
+            - 8001:80
         environment:
-          - PMA_ARBITRARY=1
+            - PMA_ARBITRARY=1
+            - MYSQL_USERNAME=${DB_USERNAME}
+            - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
         networks:
-          - laravel-9
+            - laravel-api
 
     # db mysql
     db:
@@ -52,7 +54,7 @@ services:
         ports:
             - "3388:3306"
         networks:
-            - laravel-9
+            - laravel-api
 
     # queue
     queue:
@@ -65,14 +67,14 @@ services:
             - redis
             - app
         networks:
-            - laravel-9
+            - laravel-api
 
     # redis
     redis:
         image: redis:latest
         networks:
-            - laravel-9
+            - laravel-api
 
 networks:
-    laravel-9:
+    laravel-api:
         driver: bridge

@@ -1,7 +1,7 @@
 FROM php:8.1.1-fpm
 
 # Arguments
-ARG user=nathan
+ARG user=ricardo
 ARG uid=1000
 
 # Install system dependencies
@@ -35,8 +35,8 @@ RUN pecl install -o -f redis \
     &&  docker-php-ext-enable redis
 
 # Install Node.js and NPM
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - \
-    && apt-get install -y nodejs
+# RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - \
+#     && apt-get install -y nodejs
 
 # Giving permitions to docker-php-entrypoin
 RUN chmod 755 /usr/local/bin/docker-php-entrypoint
@@ -50,4 +50,4 @@ USER $user
 COPY build/entrypoint.sh /usr/local/bin/docker-php-entrypoint
 
 # Instalall NPM dependencies
-RUN npm install
+# RUN npm install
