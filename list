@@ -1,0 +1,27 @@
+
+   INFO  Running migrations.  
+
+  2023_09_19_130109_create_locacoes_table ................................................................................................ 26ms FAIL
+
+   Illuminate\Database\QueryException 
+
+  SQLSTATE[HY000]: General error: 1215 Cannot add foreign key constraint (SQL: alter table `locacoes` add constraint `locacoes_cliente_id_foreign` foreign key (`cliente_id`) references `clientes` (`id`))
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:760
+    756▕         // If an exception occurs when attempting to run a query, we'll format the error
+    757▕         // message to include the bindings with SQL, which will make this exception a
+    758▕         // lot more helpful to the developer instead of just the database's errors.
+    759▕         catch (Exception $e) {
+  ➜ 760▕             throw new QueryException(
+    761▕                 $query, $this->prepareBindings($bindings), $e
+    762▕             );
+    763▕         }
+    764▕     }
+
+      [2m+9 vendor frames [22m
+  10  database/migrations/2023_09_19_130109_create_locacoes_table.php:31
+      Illuminate\Support\Facades\Facade::__callStatic("create")
+
+      [2m+25 vendor frames [22m
+  36  artisan:37
+      Illuminate\Foundation\Console\Kernel::handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
